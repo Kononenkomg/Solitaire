@@ -1,0 +1,57 @@
+body {
+  font-family: sans-serif;
+  line-height: 1.5em;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  height: 100%;
+  margin: auto;
+  padding: 1em;
+}
+
+main img {
+  width: 8rem;
+}
+
+.row {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.block img {
+  position: absolute;
+}
+.block {
+  margin-right: 60px;
+
+}
+.frm-group {
+  
+}
+.rigth-align {
+  /* display: flex;
+  justify-content: space-between; */
+  float: right;
+  width: 34rem;
+}
+.pile-card-block, .block1{
+  width: 8rem;
+  height: 12rem;
+  border: 1px solid black;
+  display: inline-block;
+  position: absolute;
+  left: 50%;
+}
+.block2 {
+  left: 60%;
+}
+.block3 {
+  left: 70%
+}
+.block4 {
+  left: 80%;
+}
+
