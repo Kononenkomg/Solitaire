@@ -100,6 +100,7 @@ cardBack.addEventListener('click', (e) => {
 
             oldImages[oldImageIndex] = oldImage;
             // console.log(oldImages[oldImageIndex].id);
+            // console.log(oldImages);
             // console.log(oldImageIndex);
             zIndex++;
         }
@@ -112,7 +113,7 @@ cardBack.addEventListener('click', (e) => {
         img.setAttribute('ondragover', 'allowDrop(event)');
         img.setAttribute('ondrop', 'drop(event, this)');
         form.after(img.cloneNode(true));
-        if (oldImageIndex == 0) {
+        if (oldImageIndex == 0) {            
             oldImages[oldImageIndex] = img;
         }
         oldImageIndex++;
@@ -122,7 +123,8 @@ cardBack.addEventListener('click', (e) => {
     } else {
         cardBack.setAttribute('style', 'display:hidden;');
     }
-
+    console.log(oldImages);
+    console.log(oldImageIndex);
 })
 
 //generating arrays of random card for startup game
@@ -150,7 +152,8 @@ function openCard(img) {
 
         newCardMade = generateNewCard();
         img.setAttribute('src', 'img/PNG/' + newCardMade + '.png');
-        img.setAttribute('id', newCardMade);
+        img.setAttribute('id', newCardMade)
+
     }
     // console.log(usedCards);
 }
@@ -183,13 +186,25 @@ function drop(ev, img) {
         draggingImage.setAttribute('style', 'margin-top:' + pixels + 'px;');
         draggingImage.setAttribute('class', '');
         draggingImage.setAttribute('ondragstart', 'dragStart(this)');
+        // console.log(oldImageIndex);
+        // oldImageIndex--;
+        // console.log(oldImages[oldImageIndex].id);
+        // console.log(draggingImage.id);
+        // console.log(oldImages);
         if (oldImageIndex > 0 && oldImages[0].id == draggingImage.id) {
             oldImageIndex--;
             if (oldImageIndex > 1) {
-                oldImages[oldImageIndex].setAttribute('style', "margin-top:0; position:absolute;");
+                oldImages[oldImageIndex].setAttribute('style', "margin-top:0; position:absolute;");                
             }
-            newImageId = oldImages[oldImageIndex].id;
+            for( var i = 0; i < oldImages.length; i++){ 
+                if ( oldImages[i].id === draggingImage.id) {
+                    oldImages.splice(i, 1); 
+                }
+            }
+            newImageId = oldImages[oldImageIndex-1].id;
         }
+        console.log(oldImageIndex);
+        console.log(oldImages);
     }
 }
 
@@ -214,15 +229,18 @@ function dropPile(ev, img) {
     }
     // if (zIndexTopCards == -15 && draggingImage.id.includes('A')){   VERY IMPORTANT LINE!!!!!     
     if (zIndexTopCards == -15){        
-        console.log('hi');
+        
         ev.target.insertAdjacentElement('afterend', draggingImage);
         img.setAttribute('style', 'z-Index:' + zIndexTopCards + '; position: absolute; border:none;')
         draggingImage.setAttribute('style', 'margin-top:0px; position:absolute; border: none;');
         draggingImage.setAttribute('ondrop', 'dropPile(event, this)');
         draggingImage.setAttribute('ondragstart', 'dragFromPile(this)');
         draggingImage.setAttribute('class', 'pile-card-block ' + block);
+        console.log(oldImageIndex);
+        console.log(oldImages[0].id);
+        console.log(draggingImage.id);
         if (oldImageIndex > 0 && oldImages[0].id == draggingImage.id) {
-            oldImageIndex++;
+            oldImageIndex--;
             if (oldImageIndex > 1) {
                 oldImages[oldImageIndex].setAttribute('style', "margin-top:0; position:absolute;");
             }
